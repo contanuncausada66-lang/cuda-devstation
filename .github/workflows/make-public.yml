@@ -7,26 +7,16 @@ jobs:
   public:
     runs-on: ubuntu-24.04
     permissions:
-      packages: write
+      packages: read
+      contents: read
     steps:
-      - name: Make package public
+      - name: List user packages
         run: |
           set -x
-          echo "=== Trying PATCH /user/packages/container/cuda-devstation/visibility ==="
-          gh api --method PATCH \
-            /user/packages/container/cuda-devstation/visibility \
-            -F visibility=public \
-            --verbose 2>&1
+          echo "=== List container packages ==="
+          gh api "/user/packages?package_type=container" --jq '.[] | {name: .name, visibility: .visibility, url: .url}' 2>&1 || true
 
-          echo "=== Trying with query param ==="
-          gh api --method PATCH \
-            "/user/packages/container/cuda-devstation?visibility=public" \
-            --verbose 2>&1
-
-          echo "=== Trying via orgs (user) ==="
-          gh api --method PATCH \
-            "/users/contanuncausada66-lang/packages/container/cuda-devstation/visibility" \
-            -F visibility=public \
-            --verbose 2>&1
+          echo "=== List all user packages ==="
+          gh api "/user/packages" --jq '.[] | {name: .name, package_type: .package_type, visibility: .visibility}' 2>&1 || true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
