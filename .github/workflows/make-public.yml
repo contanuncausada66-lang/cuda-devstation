@@ -11,8 +11,22 @@ jobs:
     steps:
       - name: Make package public
         run: |
+          set -x
+          echo "=== Trying PATCH /user/packages/container/cuda-devstation/visibility ==="
           gh api --method PATCH \
-            /user/packages/container/cuda-devstation \
-            -f visibility=public
+            /user/packages/container/cuda-devstation/visibility \
+            -F visibility=public \
+            --verbose 2>&1
+
+          echo "=== Trying with query param ==="
+          gh api --method PATCH \
+            "/user/packages/container/cuda-devstation?visibility=public" \
+            --verbose 2>&1
+
+          echo "=== Trying via orgs (user) ==="
+          gh api --method PATCH \
+            "/users/contanuncausada66-lang/packages/container/cuda-devstation/visibility" \
+            -F visibility=public \
+            --verbose 2>&1
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
