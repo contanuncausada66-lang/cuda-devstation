@@ -14,7 +14,8 @@ RUN apt-get update -qq && \
       python3-pip python3 \
       curl ca-certificates unzip wget \
       dbus-x11 x11-xserver-utils xfonts-base \
-      firefox proot && \
+      firefox proot \
+      virtualgl mesa-utils glmark2 && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN curl -fsSL https://code-server.dev/install.sh | sh
