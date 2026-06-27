@@ -22,7 +22,9 @@ RUN curl -fsSL https://code-server.dev/install.sh | sh
 RUN mkdir -p /opt/novnc && \
     curl -fsSL https://github.com/novnc/noVNC/archive/refs/tags/v1.7.0.tar.gz | \
     tar -xz -C /opt/ && \
-    ln -sf /opt/noVNC-1.7.0 /opt/novnc
+    cp -r /opt/noVNC-1.7.0/* /opt/novnc/ && \
+    rm -rf /opt/noVNC-1.7.0 && \
+    ls -la /opt/novnc/ | head -10
 
 RUN pip3 install --break-system-packages websockify
 
