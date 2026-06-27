@@ -2,6 +2,4 @@
 unset SESSION_MANAGER
 unset DBUS_SESSION_BUS_ADDRESS
 export DISPLAY=:1
-[ -x /etc/vnc/xstartup ] && exec /etc/vnc/xstartup
-xrdb $HOME/.Xresources 2>/dev/null
-startxfce4 &
+dbus-launch startxfce4

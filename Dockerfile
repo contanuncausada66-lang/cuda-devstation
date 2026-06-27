@@ -13,7 +13,7 @@ RUN apt-get update -qq && \
       nginx supervisor \
       python3-pip python3 \
       curl ca-certificates unzip wget \
-      dbus-x11 x11-xserver-utils xfonts-base \
+      dbus-x11 dbus-launch x11-xserver-utils xfonts-base \
       firefox proot && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
