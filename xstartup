@@ -1,5 +1,2 @@
 #!/bin/bash
-unset SESSION_MANAGER
-unset DBUS_SESSION_BUS_ADDRESS
-export DISPLAY=:1
-dbus-launch startxfce4
+exec startxfce4
