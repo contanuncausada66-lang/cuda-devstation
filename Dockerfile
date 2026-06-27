@@ -26,7 +26,9 @@ RUN mkdir -p /opt/novnc && \
 
 RUN pip3 install --break-system-packages websockify
 
-RUN mkdir -p /root/.vnc /root/.config/code-server /root/workspace
+RUN mkdir -p /root/.vnc /root/.config/code-server /root/workspace && \
+    echo "admin123" | tigervncpasswd -f > /root/.vnc/passwd && \
+    chmod 600 /root/.vnc/passwd
 
 COPY xstartup /root/.vnc/xstartup
 RUN chmod +x /root/.vnc/xstartup
