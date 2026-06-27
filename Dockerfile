@@ -15,7 +15,15 @@ RUN apt-get update -qq && \
       curl ca-certificates unzip wget \
       dbus-x11 x11-xserver-utils xfonts-base \
       firefox proot \
-      virtualgl mesa-utils glmark2 && \
+      mesa-utils glmark2 libxv1 libxtst6 libegl1 libgl1 && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN VGL_VER=3.1.2 && \
+    curl -fsSL "https://github.com/VirtualGL/virtualgl/releases/download/${VGL_VER}/virtualgl_${VGL_VER}_amd64.deb" \
+      -o /tmp/virtualgl.deb && \
+    apt-get update -qq && \
+    apt-get install -y -qq --no-install-recommends /tmp/virtualgl.deb && \
+    rm /tmp/virtualgl.deb && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN curl -fsSL https://code-server.dev/install.sh | sh
