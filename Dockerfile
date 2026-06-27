@@ -28,7 +28,8 @@ RUN pip3 install --break-system-packages websockify
 
 RUN mkdir -p /root/.vnc /root/.config/code-server /root/workspace && \
     echo "admin123" | tigervncpasswd -f > /root/.vnc/passwd && \
-    chmod 600 /root/.vnc/passwd
+    chmod 600 /root/.vnc/passwd && \
+    printf 'bind-addr: 127.0.0.1:8081\nauth: password\npassword: admin123\ncert: false\n' > /root/.config/code-server/config.yaml
 
 COPY xstartup /root/.vnc/xstartup
 RUN chmod +x /root/.vnc/xstartup
